@@ -1,0 +1,79 @@
+
+<div ng-controller="userController">
+    <form class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Create a new playlist" 
+            ng-model="newPlaylist" autocomplete="off">
+            <button type="submit" class="btn btn-primary" 
+            ng-click="createPlaylist(newPlaylist)" ng-disabled="!newPlaylist">Add</button> 
+        </div>
+    </form>
+    <hr>
+        <div class="col-md-6" >   
+            <h3 class="typo"> My playlist : </h3>
+            <div class="list-group">
+                    <div ng-repeat="x in playlistSet track by $index">
+                        <a href="#" class="list-group-item" data-toggle="collapse" data-target="#row{{$index}}"><label>{{x.name}}</label></a>
+                        <div id="row{{$index}}" class="collapse">
+                            <div class="panel-body">
+                            <button type="submit" class="btn btn-danger btn-sm" ng-click="deletePlaylist(x._id)"><i class="fas fa-trash-alt"></i>Delete</button>
+                            <button type="submit" class="btn btn-success btn-sm" ng-click="getVideoSet(x._id,x.name)">
+                              <i class="fas fa-folder-open"></i>Open
+                            </button>
+                            </div>
+                        </div>
+                        
+                    </div>
+               
+            </div>
+           
+           
+        </div>
+        <div class="col-md-6" >
+            <h3 class="typo"> {{ plName }} </h3>
+            <div class="card-body row">
+                <div ng-repeat="data in videoSet track by $index">
+                    
+                    <div class="card" style="width: 10rem;height: 8rem;">
+                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}">
+                                <img src="{{data.url}}" alt="{{data.title}}"
+                                class="card-img-top" title="{{data.title}}">
+                            </a>
+                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}"><i
+                                class="glyphicon glyphicon-play-circle"></i></a>
+                            
+                    </div>
+                </div>
+                
+            </div>
+           
+        </div>
+            
+        <!-- Modal -->
+    <div id="videoPlayer" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                
+                <div class="modal-body mb-0 p-0">
+                    <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+                            <iframe class="embed-responsive-item" id="videoId" src="about:blank"
+                              allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-outline-danger btn-rounded btn-md ml-4 " 
+                        ng-click="removeVideo()" data-dismiss="modal">
+                            Remove from playlist <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-outline-secondary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
+      
+                </div>
+              
+            </div>
+        </div>
+    </div>
+     <!--/Modal  -->
+</div>

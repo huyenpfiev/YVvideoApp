@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html ng-app="videoApp">
+<head>
+    <title>Y&VVideo App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- // -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="../../theme/YVvideo/web/css/bootstrap.css" rel='stylesheet' type='text/css'/>
+    
+    <!-- Custom CSS -->
+    <link href="../../theme/YVvideo/web/css/style.css" rel='stylesheet' type='text/css'/>
+    <!-- Graph CSS -->
+    <link href="../../theme/YVvideo/web/css/font-awesome.css" rel="stylesheet">
+    <!-- jQuery -->
+    <!-- lined-icons -->
+    <link rel="stylesheet" href="../../theme/YVvideo/web/css/icon-font.css" type='text/css'/>
+    <!-- Meters graphs -->
+    <script src="../../theme/YVvideo/web/js/jquery-2.1.4.js"></script>
+
+    <!-- Scripts Angular-->
+    <script src="javascripts/angular.min.js"></script>
+    <script src="javascripts/angular-ui-router.min.js"></script>
+    <script src="javascripts/angular-ui-notification.min.js"></script>
+    <link rel="stylesheet" href="stylesheets/angular-ui-notification.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- controllers -->
+    <script src="routing.js"></script>
+    <!-- USER API -->
+    <script src="services/userService.js"></script>
+    <script src="services/tradService.js"></script>
+    <script src="controllers/userController.js"></script>
+
+    <!-- Youtube API -->
+    <script src="services/youtubeService.js"></script>
+    <script src="controllers/YoutubeController.js"></script>
+    <!-- Vimeo API -->
+    <script src="services/vimeoService.js"></script>
+    <script src="controllers/VimeoController.js"></script>
+</head>
+
+<body class="sticky-header left-side-collapsed" ng-controller="userController">
+<section>
+    <!-- left side start-->
+    <div class="left-side sticky-left-side">
+
+        <!--logo and iconic logo start-->
+        <div class="logo">
+            <h1><a ui-sref="home">Y&VVideo</a></h1>
+        </div>
+        <div class="logo-icon text-center">
+            <a ui-sref="home">Y&V </a>
+        </div>
+
+        <!--logo and iconic logo end-->
+        <div class="left-side-inner">
+
+            <!--sidebar nav start-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li class="active"><a ui-sref="youtube"><i class="fab fa-youtube"></i><span>Youtube</span></a>
+                </li>
+                <li><a ui-sref="vimeo"><i class="fab fa-vimeo"></i><span>Vimeo</span></a></li>
+                <li ><a ui-sref="history"><i class="lnr lnr-indent-increase"></i> <span>Show history</span></a>
+                </li>
+                <li ng-show="!isLogged" ><a ui-sref="login"><i class="fas fa-sign-in-alt"></i> <span>Log in</span></a></li>
+                <li ng-show="!isLogged" ><a ui-sref="signup"><i class="fas fa-user-plus"></i> <span>Sign up</span></a></li>
+                <li ng-show="isLogged" ><a ui-sref="playlist"><i class="fab fa-playstation"></i> <span>Playlist</span></a></li>
+                <li ng-show="isLogged" ><a href="#" data-toggle="modal" data-target="#logoutModal">
+                    <i class="fas fa-sign-out-alt"></i><span>Log out</span></a></li>
+            </ul>
+            <!--sidebar nav end-->
+        </div>
+    </div>
+   
+    <!-- Modal logout-->
+    <div ng-show="isLogged" class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title w-100" id="myModalLabel">Are you sure that you want to log out?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+                    <a ui-sref="logout">
+                        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" aria-label="Close">Yes</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //Modal logout-->
+    <!-- left side end-->
+
+    <!-- main content start-->
+    <div class="main-content">
+        <!-- Menu en haut -->
+        <div class="header-section">
+            <!--toggle button start-->
+            <a class="toggle-btn menu-collapsed "><i class="fa fa-bars"></i>   
+            </a>
+            <!--toggle button end-->
+            
+            <h2 class="title col-sm-8">Y&VVideo Application</h2>
+            
+            <div class="menu-right col-sm-2" ng-show="isLogged">
+                <button class="btn btn-secondary" >
+                <a ui-sref="playlist" ><i class="fa fa-user"></i>
+                </a>
+                </button>
+                <span> {{user.userfirstname}}</span>
+            </div>
+          
+        </div>
+      
+       
+        <!-- //header-ends -->
+        <div id="page-wrapper">
+            <div class="inner-content">
+                <div class="music-browse">
+
+                    <!-- Le contenu dynamique (Routing) -->
+                    <ui-view>
+
+
+                    </ui-view>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        
+    </div>
+   
+    
+    <!--footer section start-->
+    <footer>
+        <p>Developed by Huyen & Soukaina & Ghofrane | January 2020
+        </p>
+    </footer>
+    <!--footer section end-->
+    <!-- main content end-->
+</section>
+
+<script src="../../theme/YVvideo/web/js/jquery.nicescroll.js"></script>
+<script src="../../theme/YVvideo/web/js/scripts.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="../../theme/YVvideo/web/js/bootstrap.js"></script>
+
+</body>
+</html>

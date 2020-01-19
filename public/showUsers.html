@@ -1,0 +1,73 @@
+<div>
+    <div class="col-md-6" ng-controller="userController">
+        <h3 class="typo">All the users : </h3>
+        <div class="bs-docs-example">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>User is root</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in userSet track by $index">
+                        <td>{{$index}}</td>
+                        <td>{{ user.userfirstname }}</td>
+                        <td>{{ user.userlastname }}</td>
+                        <td>{{ user.email }}</td>
+                        <td><input type="checkbox" ng-model="checked" ng-init="checked= (user.role==='admin')"  ng-click="updateUser(user)" /><i class="fa fa-user"></i></td>
+                        <td><a href="#" data-toggle="modal" data-target="#myModalHisto" ng-click="showUserHistory(user)"><i class="fa fa-user"></i> Show history</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal history-->
+        <div class="modal fade" id="myModalHisto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title w-100" id="myModalLabel">User history</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body modal-spa">
+                        <div>
+                            <div class="col-md-6" >
+                                <h3 class="typo">Youtube research history : </h3>
+                                <ul class="list-group">
+                                    <div ng-repeat="search in userYoutubeHistorySet track by $index">
+                                        <li class="list-group-item">
+                                            <p>{{ search.searchText }}</p><p>{{ search.date | date:"dd/MM/yyyy 'at' hh:mm:ss"}}</p>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                            <div class="col-md-6" ng-controller="vimeoController">
+                                <h3 class="typo">Vimeo research history : </h3>
+                                <ul class="list-group">
+                                    <div ng-repeat="search in userYimeoHistorySet track by $index">
+                                        <li class="list-group-item">
+                                            <p>{{ search.searchText }}</p><p>{{ search.date | date:"dd/MM/yyyy 'at' hh:mm:ss"}}</p>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //Modal history-->
+
+    </div>
+</div>

@@ -1,0 +1,38 @@
+
+<div>
+    <aside class="col-sm-6">
+
+    <div class="card">
+        <article class="card-body">
+   
+        <h3 >Create an account</h3>
+	    <form ng-submit="register()">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="First name" required="required" pattern=".{2,20}" title="Enter a valid name"
+                ng-model="user.userfirstname" />
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Last name" required="required" pattern=".{2,20}" title="Enter a valid name"
+                ng-model="user.userlastname" />
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                title="Enter a valid email" ng-model="user.email" />
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" required="required" pattern=".{6,}" title="Minimum 6 characters required"
+                autocomplete="off" ng-model="user.password" />
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Confirm password" required="required" pattern=".{6,}" title="Confirm password"
+                autocomplete="off" ng-model="user.confirmPassword" />
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block"> Sign up  </button>
+            </div>                                                         
+        </form>
+        </article>
+    </div> 
+    </aside>
+</div>

@@ -1,0 +1,24 @@
+<div>
+    <h2  class="typo" style="text-align:center">My research history</h2>
+    <hr>
+    <div class="col-md-6" ng-controller="youtubeController">
+        <h3 >Youtube : </h3>
+        <ul class="list-group">
+            <div ng-repeat="search in youtubeHistorySet track by $index">
+                <li class="list-group-item">
+                    <label>{{ search.searchText }}</label><p>{{ search.date | date:"dd/MM/yyyy 'at' hh:mm:ss"}}</p>
+                </li>
+            </div>
+        </ul>
+    </div>
+    <div class="col-md-6" ng-controller="vimeoController">
+        <h3>Vimeo : </h3>
+        <ul class="list-group">
+            <div ng-repeat="search in vimeoHistorySet track by $index">
+                <li class="list-group-item">
+                    <label>{{ search.searchText }}</label><p>{{ search.date | date:"dd/MM/yyyy 'at' hh:mm:ss"}}</p>
+                </li>
+            </div>
+        </ul>
+    </div>
+</div>

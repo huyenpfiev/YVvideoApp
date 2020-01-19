@@ -1,0 +1,106 @@
+<div class="browse" ng-controller="youtubeController">
+<!--search zone-->
+    <div class="card" style="background-color: rgb(230, 238, 245)">
+        
+        <div class="card-body row">
+            <div class="col-md-8">
+                    <input type="text" class="form-control" placeholder="Search video" ng-model="youtubeSearchText" autocomplete="off">
+            </div>
+            <div class="col-md-4">
+              <button type="submit" class="btn btn-danger" ng-click="initPage(); getYoutubeData(youtubeSearchText);" ng-disabled="!youtubeSearchText">
+                    <i class="fab fa-youtube "></i> Search on Youtube
+            </button> 
+            </div>
+        </div>
+
+    </div>
+<!-- show results -->
+    <div class="card bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs" style="background-color:#f9f9f9;border: none">
+
+        
+        <div id="myTabContent" class="tab-content ">
+            <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+             
+                <div class="card-body row">
+                    <div ng-repeat="data in youtubeData">
+                        
+                        <div class="card" style="width: 18rem;">
+                                <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}">
+                                    <img src="{{data.snippet.thumbnails.default.url}}" alt="{{data.snippet.title}}"
+                                    class="card-img-top" title="{{data.snippet.title}}">
+                                </a>
+                                <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}"><i
+                                    class="glyphicon glyphicon-play-circle"></i></a>
+                                <div class="card-body">
+                                        <p class="card-text" style="font-weight: bold;color:black">
+                                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}" >{{data.snippet.title}}</a>
+                                        </p>
+                                </div>
+                                
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Pagination -->
+        <div class="clearfix"></div>
+        <div style="text-align:center;" ng-if="checkDataLength(youtubeData)">
+                <input type="hidden" id="pageToken" value="">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" ng-disabled="!prevPageToken" id="pageTokenPrev"
+                            ng-click="callNextPageFn(prevPageToken)" class="btn">Prev
+                    </button>
+                    <button type="button" id="pageTokenNext" ng-click="callNextPageFn(nextPageToken)"
+                            class="btn">Next
+                    </button>
+                </div>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div id="videoPlayer" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                
+                <div class="modal-body mb-0 p-0">
+                    <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+                            <iframe class="embed-responsive-item" id="videoId" src="about:blank"
+                              allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-outline-success btn-rounded btn-md ml-4 " 
+                        ng-show="isLogged" data-toggle="dropdown">
+                            Add to playlist <i class="fas fa-plus-circle"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Select a playlist</li>
+                            <li class="divider"></li>
+                            <li ng-repeat="p in playlistSet"><a href="#" ng-click="addVideo(p._id)">{{p.name}}</a></li>
+                            <li class="divider"></li>
+                            
+                            <li>
+                                <a href="#" data-dismiss="dropdown-menu"><i class="fas fa-times"></i>
+                                    Close
+                                </a>
+                            </li>
+                            <li>
+                                    <a href="#" ng-click="createNew()" ><i class="fas fa-folder-plus"></i>
+                                        Create a new playlist
+                                    </a>
+                                </li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-outline-secondary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
+      
+                </div>
+              
+            </div>
+        </div>
+    </div>
+     <!--/Modal  -->
+    
+</div>

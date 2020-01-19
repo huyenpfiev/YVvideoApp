@@ -1,0 +1,108 @@
+<div class="browse" ng-controller="vimeoController">
+    <!-- search zone -->
+        <div class="card" style="background-color: rgb(230, 238, 245)">
+        
+            <div class="card-body row">
+                <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Search video" ng-model="vimeoSearchText" autocomplete="off">
+                </div>
+                <div class="col-md-4">
+                  <button type="submit" class="btn btn-primary" ng-click="initPage(); getVimeoData(vimeoSearchText);" ng-disabled="!vimeoSearchText">
+                        <i class="fab fa-vimeo "></i> Search on Vimeo
+                </button> 
+                </div>
+            </div>
+    
+        </div>
+     
+    <!-- show results -->
+    <div class="card bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs" style="background-color:#f9f9f9;border: none">
+
+        
+        <div id="myTabContent" class="tab-content ">
+            <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+             
+                <div class="card-body row">
+                    <div ng-repeat="data in vimeoData">
+                        
+                        <div class="card" style="width: 18rem;">
+                                <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}">
+                                    <img src="{{data.pictures.sizes[data.pictures.sizes.length-1].link}}" alt="{{data.name}}"
+                                    class="card-img-top" title="{{data.name}}">
+                                </a>
+                                <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}"><i
+                                    class="glyphicon glyphicon-play-circle"></i></a>
+                                <div class="card-body">
+                                        <p class="card-text" style="font-weight: bold;color:black">
+                                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}" >{{data.name}}</a>
+                                        </p>
+                                </div>
+                                
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+         <!-- Pagination -->
+         <div class="clearfix"></div>
+         <div style="text-align:center;" ng-if="checkDataLength(vimeoData)">
+                 <input type="hidden" id="pageToken" value="">
+                 <div class="btn-group" role="group" aria-label="...">
+                     <button type="button" ng-disabled="!prevPageToken" id="pageTokenPrev"
+                             ng-click="callNextPageFn(prevPageToken)" class="btn">Prev
+                     </button>
+                     <button type="button" id="pageTokenNext" ng-click="callNextPageFn(nextPageToken)"
+                             class="btn">Next
+                     </button>
+                 </div>
+         </div>
+         
+    </div>
+  
+    <!-- Modal -->
+    <div id="videoPlayer" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+    
+                <div class="modal-body mb-0 p-0">
+                    <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+                            <iframe class="embed-responsive-item" id="videoId" src="about:blank"
+                              allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                        <span class="mr-4">Spread the word!</span>
+                        <a type="button" class="btn-floating btn-sm btn-fb"><i class="fab fa-facebook-f"></i></a>
+                        <a type="button" class="btn-floating btn-sm btn-tw"><i class="fab fa-twitter"></i></a>
+                        <a type="button" class="btn-floating btn-sm btn-gplus"><i class="fab fa-google-plus-g"></i></a>
+                        <a type="button" class="btn-floating btn-sm btn-ins"><i class="fab fa-linkedin-in"></i></a>
+                        <button type="button" class="btn btn-outline-secondary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
+      
+                </div>
+              
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#videoPlayer').on('show.bs.modal', function (e) {
+            var bookId = $(e.relatedTarget).data('book-id');
+            var href = bookId.embed.html;
+            if(href !== null){
+                var url = href.substring(href.indexOf('src="') + 5, href.indexOf('" '));
+                document.getElementById('videoId').src = url;
+                document.getElementById('videoId').hidden = false;
+               
+            }
+            else {
+                
+                document.getElementById('videoId').hidden = true;
+            }
+
+           
+        });
+        $('#videoPlayer').on('hidden.bs.modal', function () {
+            document.getElementById('videoId').src = "about:blank";
+        })
+    </script>
+</div>
