@@ -5,9 +5,9 @@ var https = require('https');
 var fs = require("fs");
 var request = require('request');
 var jwt = require('jsonwebtoken');
-var vimeoLayer = require('../public/dao/VimeoDao');
+var vimeoLayer = require('../public/dao/UserDao');
 
-var _access_token = '4f9372ee96fe094b1179d1b128845d2b';//'f82a8d54b661e5c61fde6317e74b5c1a';
+var _access_token = '4f9372ee96fe094b1179d1b128845d2b';
 var secret = 'd034e2a12cfeb6bea9d01e88f1192be8a02d193a';
 
 var app = express();
@@ -97,7 +97,7 @@ app.post('/addToHistory', function (req, res) {
             }
             else {
                 //console.log('current user : ' + decoded.user.email);
-                vimeoLayer.addToHistory(decoded.user, searchText, function () {
+                vimeoLayer.addToVimeoHistory(decoded.user, searchText, function () {
                     var obj = {
                         success: true
                     }
@@ -123,7 +123,7 @@ app.post('/getHistorySet', function (req, res) {
                 });
             }
             else {
-                vimeoLayer.getHistorySet(decoded.user, function (historySet) {
+                vimeoLayer.getVimeoHistorySet(decoded.user, function (historySet) {
                     var obj = {
                         success: true,
                         historySet: historySet
@@ -149,7 +149,7 @@ app.post('/showUserHistory', function (req, res) {
             errorSet.push('CHAMP_VIDE');
         }
         if (errorSet.length == 0) {
-            vimeoLayer.getHistorySet(user, function (historySet) {
+            vimeoLayer.getVimeoHistorySet(user, function (historySet) {
                 var obj = {
                     success: true,
                     historySet: historySet

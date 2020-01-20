@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var uuidv4 = require("uuid/v4");
-var dbURI = 'mongodb://localhost/MyPlayVimeoHistoryDB';
+var dbURI = 'mongodb://localhost/YVvideoAppDB';
 
 mongoose.connect(dbURI, { useNewUrlParser: true }, function (err) {
   if (err) {
@@ -17,7 +17,7 @@ var vimeoHistorySchema = new mongoose.Schema({
   date: Date
 });
 
-var vimeoHistoryModel = mongoose.model('VimeoHistory', vimeoHistorySchema);
+var vimeoHistoryModel = mongoose.model('vimeohistory', vimeoHistorySchema);
 
 module.exports = {
     addToHistory: function (user, searchText, cb) {

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var uuidv4 = require("uuid/v4");
-var dbURI = 'mongodb://localhost/MyPlayYoutubeHistoryDB';
+var dbURI = 'mongodb://localhost/YVvideoAppDB';
 
 mongoose.connect(dbURI, { useNewUrlParser: true }, function (err) {
   if (err) {
@@ -17,7 +17,7 @@ var youtubeHistorySchema = new mongoose.Schema({
   date: Date
 });
 
-var youtubeHistoryModel = mongoose.model('YoutubeHistory', youtubeHistorySchema);
+var youtubeHistoryModel = mongoose.model('youtubehistory', youtubeHistorySchema);
 
 module.exports = {
     addToHistory: function (user, searchText, cb) {

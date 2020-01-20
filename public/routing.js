@@ -87,12 +87,12 @@ myApp.config(function ($stateProvider){
 // Notification module setting
 myApp.config(function (NotificationProvider) {
     NotificationProvider.setOptions({
-        delay: 5000,
+        delay: 3000,
         startTop: 100,
         startRight: 10,
         verticalSpacing: 20,
         horizontalSpacing: 20,
-        positionX: 'right',
+        positionX: 'center',
         positionY: 'top',
         closeOnClick: true
     });

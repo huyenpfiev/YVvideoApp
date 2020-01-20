@@ -5,7 +5,7 @@ var https = require('https');
 var request = require('request');
 var fs = require("fs");
 var jwt = require('jsonwebtoken');
-var youtubeLayer = require('../public/dao/YoutubeDao');
+var youtubeLayer = require('../public/dao/UserDao');
 
 var API_KEY = "AIzaSyAUw42AeuY-PnJvVLs8npnDamZffK8xCt4";
 var secret = 'd034e2a12cfeb6bea9d01e88f1192be8a02d193a';
@@ -129,7 +129,7 @@ app.post('/addToHistory', function (req, res) {
             }
             else {
                 //console.log('current user : ' + decoded.user.email);
-                youtubeLayer.addToHistory(decoded.user, searchText, function () {
+                youtubeLayer.addToYoutubeHistory(decoded.user, searchText, function () {
                     var obj = {
                         success: true
                     }
@@ -155,7 +155,7 @@ app.post('/getHistorySet', function (req, res) {
                 });
             }
             else {
-                youtubeLayer.getHistorySet(decoded.user, function (historySet) {
+                youtubeLayer.getYoutubeHistorySet(decoded.user, function (historySet) {
                     var obj = {
                         success: true,
                         historySet: historySet
@@ -181,7 +181,7 @@ app.post('/showUserHistory', function (req, res) {
             errorSet.push('CHAMP_VIDE');
         }
         if (errorSet.length == 0) {
-            youtubeLayer.getHistorySet(user, function (historySet) {
+            youtubeLayer.getYoutubeHistorySet(user, function (historySet) {
                 var obj = {
                     success: true,
                     historySet: historySet

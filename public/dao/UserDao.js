@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 var uuidv4 = require("uuid/v4");
-var dbURI = 'mongodb://localhost/MyPlayUserDB';
+var dbURI = 'mongodb://localhost/YVvideoAppDB';
 mongoose.set('useFindAndModify', false);
 
 mongoose.connect(dbURI, { useNewUrlParser: true }, function (err) {
@@ -32,10 +32,26 @@ var videoSchema=new mongoose.Schema({
     title:String,
     url:String,
     playlistId:String
-})
+});
+var vimeoHistorySchema = new mongoose.Schema({
+    _id: String,
+    userEmail: String,
+    searchText: String,
+    date: Date
+  });
+var youtubeHistorySchema = new mongoose.Schema({
+    _id: String,
+    userEmail: String,
+    searchText: String,
+    date: Date
+  });
+  
+
+var youtubeHistoryModel = mongoose.model('youtubehistory', youtubeHistorySchema);
 var UserModel = mongoose.model('user', userSchema);
 var PlaylistModel=mongoose.model('playlist',playlistSchema);
 var VideoModel=mongoose.model('video',videoSchema);
+var vimeoHistoryModel = mongoose.model('vimeohistory', vimeoHistorySchema);
 
 function setPassword(data) {
     var generator = crypto.createHash('sha1');
@@ -192,6 +208,47 @@ module.exports = {
                 throw err;
             cb();
         })
+    },
+    //vimeo
+    addToVimeoHistory: function (user, searchText, cb) {
+        var newVimeoHistory = new vimeoHistoryModel({
+            _id: uuidv4(),
+            userEmail: user.email,
+            searchText: searchText,
+            date: new Date()
+        });
+        newVimeoHistory.save(function (err) {
+            if (err) {
+                throw err;
+            }
+            cb();
+        });
+    },
+    getVimeoHistorySet: function (user, cb) {
+        vimeoHistoryModel.find({ userEmail: user.email }, function (err, historySet) {
+            cb(historySet);
+        });
+    },
+    //youtube
+    addToYoutubeHistory: function (user, searchText, cb) {
+        var newYoutubeHistory = new youtubeHistoryModel({
+            _id: uuidv4(),
+            userEmail: user.email,
+            searchText: searchText,
+            date: new Date()
+        });
+        newYoutubeHistory.save(function (err) {
+            if (err) {
+                throw err;
+            }
+            cb();
+        });
+    },
+    getYoutubeHistorySet: function (user, cb) {
+        youtubeHistoryModel.find({ userEmail: user.email }, function (err, historySet) {
+            cb(historySet);
+        });
     }
+
 
   }
