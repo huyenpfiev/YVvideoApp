@@ -42,13 +42,7 @@ myApp.factory('userService', ['$http', '$state', '$rootScope', function ($http, 
         }
     }
 
-    serv.updateUser = function (user, callback) {
-        $http.post('/users/updateUser', { user: user }).then(function (resp) {
-            callback(resp.data);
-        }, function (res) {
-            console.log("ERROR = " + res.data.errorSet);
-        });
-    };
+   
     serv.hasToken = function () {
         if (localStorage.getItem('token') == null) {
             return false;

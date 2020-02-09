@@ -81,21 +81,6 @@ $vimeoService, $state, $rootScope, Notification, $tradService) {
        
     });
 
-    $scope.updateUser = function(user){
-        $userService.updateUser(user, function (res) {
-            if (res.success == true) {
-                Notification.success({ message: $tradService.get('user', 'USER_UPDATED') });
-            }
-        });
-    };
-    $scope.showUserHistory = function(user){
-        $youtubeService.showUserHistory(user, function(res){
-            $scope.userYoutubeHistorySet = res;
-        });
-        $vimeoService.showUserHistory(user, function(res){
-            $scope.userYimeoHistorySet = res;
-        });
-    };
     $scope.createPlaylist=function(newPlaylist){
         
         $userService.createPlaylist(newPlaylist,$scope.user,function(res){

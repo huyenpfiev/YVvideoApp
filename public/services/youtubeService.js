@@ -9,33 +9,27 @@ myApp.factory('youtubeService', ['$http', 'userService', function ($http, $userS
         });
     };
     serv.getVideosInfo = function (videoId, callback) {
-        $http.post('/youtube/getVideosInfo', { videoId: videoId }).then(function (resp) {
+        $http.post('/youtube/getYtVideosInfo', { videoId: videoId }).then(function (resp) {
             callback(resp.data);
         }, function (res) {
             console.log("ERROR = " + res.data.errorSet);
         });
     };
     serv.addToHistory = function (searchText, user, callback) {
-        $http.post('/youtube/addToHistory', { token: $userService.getToken(), searchText: searchText, user: user }).then(function (resp) {
+        $http.post('/youtube/addToYtHistory', { token: $userService.getToken(), searchText: searchText, user: user }).then(function (resp) {
             callback(resp.data);
         }, function (res) {
             console.log("ERROR = " + res.data.errorSet);
         });
     };
     serv.getHistorySet = function (cb) {
-        $http.post('/youtube/getHistorySet', { token: $userService.getToken() }).then(function (resp) {
+        $http.post('/youtube/getYtHistorySet', { token: $userService.getToken() }).then(function (resp) {
             cb(resp.data.historySet);
         }, function (res) {
             console.log("ERROR = " + res.data.errorSet);
         })
     };
-    serv.showUserHistory = function (user, cb) {
-        $http.post('/youtube/showUserHistory', { user: user }).then(function (resp) {
-            cb(resp.data.historySet);
-        }, function (res) {
-            console.log("ERROR = " + res.data.errorSet);
-        })
-    };
+  
     serv.addVideo=function(info,playlistId,cb){
         
         var obj={

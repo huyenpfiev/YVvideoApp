@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 var uuidv4 = require("uuid/v4");
-var dbURI = 'mongodb://localhost/YVvideoAppDB';
+var dbURI = 'mongodb://localhost:27017/YVvideoAppDB';
 mongoose.set('useFindAndModify', false);
 
 mongoose.connect(dbURI, { useNewUrlParser: true }, function (err) {
@@ -118,16 +118,7 @@ module.exports = {
             }
         });
     },
-    updateUser: function (user, cb) {
-        UserModel.findOneAndUpdate({_id: user._id}, {$set:{role:user.role}}, {new: true}, (err, usr) => {
-            if (err) {
-                console.log("Something wrong when updating user!");
-            }else{
-                cb();
-            }
-        });
-
-    },
+   
     getPlaylistName:function(name,userEmail,cb){
         PlaylistModel.findOne({name:name,userEmail},function(err,obj){
             if(err)

@@ -82,26 +82,7 @@ router.post('/getUserSet', function(req, res, next) {
         res.send(body);
     });
 });
-router.post('/updateUser', function(req, res, next) {
-    var formData = JSON.stringify(req.body);
-    var contentLength = formData.length;
 
-    request({
-        headers: {
-            'Content-Length': contentLength,
-            'Content-Type': 'application/json'
-        },
-        uri: 'https://localhost:3001/updateUser',
-        body:  formData,
-        method: 'POST',
-        rejectUnauthorized: false,
-        requestCert: true,
-        agent: false
-    }, function (error, resu, body) {
-        if(error)console.log('Erreur : dans users.js ' + error);
-        res.send(body);
-    });
-});
 router.post('/createPlaylist', function(req, res, next) {
     var formData = JSON.stringify(req.body);
     var contentLength = formData.length;

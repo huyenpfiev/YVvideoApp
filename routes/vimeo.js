@@ -16,7 +16,7 @@ router.post('/getVimeoData', function(req, res, next) {
             'Content-Length': contentLength,
             'Content-Type': 'application/json'
         },
-        uri: 'https://localhost:3003/getVimeoData',
+        uri: 'https://localhost:3001/getVimeoData',
         method: 'POST',
         body:  formData,
         rejectUnauthorized: false,
@@ -29,7 +29,7 @@ router.post('/getVimeoData', function(req, res, next) {
     }
     request(options, callback);
 });
-router.post('/addToHistory', function(req, res, next) {
+router.post('/addToVimeoHistory', function(req, res, next) {
     var formData = JSON.stringify(req.body);
     var contentLength = formData.length;
     console.log('vimeo.js > ' , formData);
@@ -38,7 +38,7 @@ router.post('/addToHistory', function(req, res, next) {
             'Content-Length': contentLength,
             'Content-Type': 'application/json'
         },
-        uri: 'https://localhost:3003/addToHistory',
+        uri: 'https://localhost:3001/addToVimeoHistory',
         method: 'POST',
         body:  formData,
         rejectUnauthorized: false,
@@ -51,7 +51,7 @@ router.post('/addToHistory', function(req, res, next) {
     }
     request(options, callback);
 });
-router.post('/getHistorySet', function(req, res, next) {
+router.post('/getVimeoHistorySet', function(req, res, next) {
     var formData = JSON.stringify(req.body);
     var contentLength = formData.length;
     console.log('vimeo.js > ' , formData);
@@ -60,7 +60,7 @@ router.post('/getHistorySet', function(req, res, next) {
             'Content-Length': contentLength,
             'Content-Type': 'application/json'
         },
-        uri: 'https://localhost:3003/getHistorySet',
+        uri: 'https://localhost:3001/getVimeoHistorySet',
         method: 'POST',
         body:  formData,
         rejectUnauthorized: false,
@@ -73,28 +73,7 @@ router.post('/getHistorySet', function(req, res, next) {
     }
     request(options, callback);
 });
-router.post('/showUserHistory', function(req, res, next) {
-    var formData = JSON.stringify(req.body);
-    var contentLength = formData.length;
-    console.log('vimeo.js > ' , formData);
-    var options = {
-        headers: {
-            'Content-Length': contentLength,
-            'Content-Type': 'application/json'
-        },
-        uri: 'https://localhost:3003/showUserHistory',
-        method: 'POST',
-        body:  formData,
-        rejectUnauthorized: false,
-        requestCert: true,
-        agent: false
-    };
-    function callback(error, response, body) {
-        if(error)console.log('Erreur : dans vimeo.js ' + error);
-        res.send(body);
-    }
-    request(options, callback);
-});
+
 
 
 module.exports = router;
